@@ -46,5 +46,5 @@ Here are some of the key API endpoints available:
 - `POST /api/photos` - Upload a new photo.
 - `GET /api/photos/:id` - Retrieve a specific photo by ID.
 - `PUT /api/photos/:id` - Update a photo by ID.
-- `DELETE /api/photos/:id` - Delete a photo by ID.
+- `DELETE /api/photos/:id` - Delete a photo by ID.  
 For a more detailed explanation, check out the documentation file.
