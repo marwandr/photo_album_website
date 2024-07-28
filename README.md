@@ -29,13 +29,13 @@ To set up the project locally, follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/marwandr/photo_album_website.git
-   cd photo_album_website```
+   cd photo_album_website
 2. Install the dependencies:
    ```bash
-   npm install```
+   npm install
 3. Start the server
    ```bash
-   node server.js```
+   node server.js
 
 ## Usage
 Once the server is running, you can access the website at `http://localhost:3000`. Use the interface to upload and manage your photo albums.
