@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media Photo Album</title>
+  <script src="script.js" async></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" />
+  <link rel="icon" href="https://i.gyazo.com/bb09c1de4012d7d84d3ada01b4ffde5b.png" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <h1>Interactive Media Photo Album</h1>
+    <h2><em>By Marwan Amrhar</em></h2>
+  </header>
+
+  <div>
+    <h2>Filter by year</h2>
+    <div id="yearContainer"></div>
+  </div>
+
+  <input type="text" id="searchField" placeholder="Search for titles.." />
+
+  <section id="Photo-album">
+    <div class="table-container">
+      <table id="table">
+        <caption>
+          <h2>Media</h2>
+        </caption>
+        <tr class="noprint">
+          <th class="poster"><strong>Poster</strong></th>
+          <th class="name"><strong>Name</strong></th>
+          <th class="year"><strong>Year</strong></th>
+          <th class="genre"><strong>Genre</strong></th>
+          <th class="description"><strong>Description</strong></th>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!--- modal codes from https://www.w3schools.com/howto/howto_css_modals.asp -->
+  <button id="modalButton">Add/Update Gallery</button>
+  <button id="resetButton">Reset Gallery</button>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <section>
+        <h3>Add to the Gallery</h3>
+        <form id="form">
+          <table id="submitTable">
+            <tr class="inputTable">
+              <td>
+                <input type="url" name="poster" id="poster" placeholder="Poster URL*" required />
+              </td>
+              <td>
+                <input type="text" name="name" id="name" placeholder="Name*" required />
+              </td>
+              <td>
+                <input type="text" name="year" id="year" placeholder="Year*" required />
+              </td>
+              <td>
+                <input type="text" name="genre" id="genre" placeholder="Genre*" required />
+              </td>
+              <td>
+                <input type="text" name="description" id="description" placeholder="Description*" required />
+              </td>
+            </tr>
+          </table>
+        </form>
+      </section>
+      <button type="submit" form="form">Add to Gallery</button>
+
+      <section>
+        <h3>Update Gallery Entry</h3>
+        <form id="updateForm">
+          <table id="updateTable">
+            <tr class="inputTable">
+              <td>
+                <input type="url" name="poster2" id="poster2" placeholder="Poster URL*" required />
+              </td>
+              <td>
+                <input type="text" name="name2" id="name2" placeholder="Name*" required />
+              </td>
+              <td>
+                <input type="text" name="year2" id="year2" placeholder="Year*" required />
+              </td>
+              <td>
+                <input type="text" name="genre2" id="genre2" placeholder="Genre*" required />
+              </td>
+              <td>
+                <input type="text" name="description2" id="description2" placeholder="Description*" required />
+              </td>
+            </tr>
+            <tr class="inputTable">
+              <td colspan="5">
+                <input type="text" name="updateID" id="updateID" placeholder="ID of Entry*" required />
+              </td>
+            </tr>
+          </table>
+        </form>
+        <button type="submit" form="updateForm">Update Entry</button>
+      </section>
+    </div>
+  </div>
+  <footer>
+    <p>
+      <em>An Interactive Media Photo Album by Marwan Amrhar</em>
+    </p>
+  </footer>
+</body>
+
+</html>

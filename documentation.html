@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="doc-style.css">
+  <title>API Documentation</title>
+</head>
+
+<body>
+  <header>
+    <h1>RESTful API Documentation</h1>
+    <p>
+      Documentation on our API containing relevant information for front-end
+      developers.
+    </p>
+  </header>
+
+  <section id="introduction">
+    <h2>Introduction</h2>
+    <p>
+      In our API we retrieve the full database of our photo gallery which is
+      saved locally to the computer.<br />
+      In addition we provide the so-called minimal
+      <strong>CRUD</strong>:
+      <em><br />
+        - Create<br />
+        - Retrieve<br />
+        - Update<br />
+        - Delete<br /></em>
+      And besides that we have also added the possibility to <em>reset</em>.
+      The API has now also been updated so that it can be used with the actual website.
+      In this documentation we shall expand on each of the methods.
+    </p>
+  </section>
+
+  <section id="endpoints">
+    <h2>Endpoint References (URI)</h2>
+    <p>
+      <strong>Create</strong> (POST method) :
+    <pre>http://localhost:3000/api/photoAlbum</pre>
+    <strong>Retrieve</strong> (GET method) :
+    <pre>For all entries: http://localhost:3000/api/authorsgallery
+For a certain entry: http://localhost:3000/api/authorsgallery/:id</pre>
+    <strong>Update</strong> (PUT method) :
+    <pre>http://localhost:3000/api/photoAlbum/:id</pre>
+    <strong>Delete</strong> (DELETE method) :
+    <pre>http://localhost:3000/api/photoAlbum/:id</pre>
+    </p>
+    <strong>Reset</strong> (GET method) :
+    <pre>http://localhost:3000/api/photoAlbum/reset</pre>
+    <h3><strong>Required parameters:</strong></h3>
+    <p>Updating an entry requires parameters (the name, year, genre, poster and description in JSON format).</p>
+  </section>
+
+  <section id="http">
+    <h2>HTTP method(s) to apply to this resource and their possible responses</h2>
+    <p>
+    <h4>POST</h4>
+    <pre><strong>Creating an entry</strong>
+  Status 500: internal server error; there is an error executing the database query.
+  Status 400: bad request; in case of duplicate inputs.
+  Status 201: success; entry has been created.</pre>
+    <h4>GET</h4>
+    <pre><strong>Retrieving all (no id):</strong>
+  Status 500: internal server error; there is an error executing the database query.
+  Status 404: not found; in case of no data.
+  Status 200: success; the data was retrieved.
+<strong>Retrieving a specific entry (with id):</strong>
+  Status 500: internal server error; there is an error executing the database query.
+  Status 404: not found; the entry doesn't contain data/doesn't exist.
+  Status 200: success; the data was retrieved.</pre>
+    <pre><strong>Resetting database:</strong>
+    Status 500: internal server error; error deleting entries.
+    Status 500: internal server error; error inserting default entries.
+    Status 404: not found; no entries found.
+    Status 200: success; database resetted successfully.
+        <h4>PUT</h4>
+        <pre>  Status 500: internal server error; there is an error executing the database query.
+  Status 404: not found; in case of invalid ID.
+  Status 204: success; the data was updated.</pre>
+    <h4>DELETE</h4>
+    <pre>  Status 500: internal server error; there is an error executing the database query.
+  Status 404: not found; in case of invalid ID.
+  Status 204: success; the data was deleted.</pre>
+    </p>
+  </section>
+
+  <section id="content-type">
+    <h2>
+      Content-Type of the representation of the resource in the HTTP response
+      message
+    </h2>
+    <p>
+      All our content-types are `application/json` and all our responses are in JSON format.
+    </p>
+  </section>
+
+  <section id="idempotency">
+    <h2>Idempotency</h2>
+    <p>
+      Idempotent operations are those that can be repeated multiple times with
+      the same effect. In the context of our API, the following operations are
+      idempotent:
+    </p>
+    <ul>
+      <li>
+        <strong>Retrieve (GET method):</strong> Retrieving data using the GET
+        method is an idempotent operation. Repeated requests for the same data
+        will produce the same result.
+      </li>
+      <li>
+        <strong>Delete (DELETE method):</strong> Deleting data using the DELETE
+        method is also idempotent. If an entry is deleted, subsequent requests
+        to delete the same entry will have no effect.
+      </li>
+      <li>
+        <strong>Reset (GET method):</strong> Resetting the database using the GET
+        method is considered idempotent. Multiple requests to reset the database
+        will not change the outcome if the database is already in a reset state.
+      </li>
+    </ul>
+    <p>
+      It's important to note that idempotency does not imply that the response
+      will be the same for each request; it simply means that the state of the
+      system will be the same after repeated requests. For example, even though
+      the response to a successful delete operation may be consistent, the server
+      may return different status codes for each request.
+    </p>
+  </section>
+
+  <section id="examples">
+    <h2>Examples</h2>
+    <table>
+      <th>Create</th>
+      <th>Retrieve</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <th>Reset</th>
+      <tr>
+        <td>
+          <pre>INPUT:
+"name":"placeholder",
+"year":"placeholder",
+"genre":"placeholder",
+"poster":"placeholder URL",
+"description":"placeholder"</pre>
+        </td>
+        <td>
+          <pre>INPUT:
+http://localhost:3000/api/photoAlbum/${ID}</pre>
+        </td>
+        <td>
+          <pre>INPUT:
+http://localhost:3000/api/photoAlbum/${ID}
+"name":"placeholder",
+"year":"placeholder",
+"genre":"placeholder",
+"poster":"placeholder URL",
+"description":"placeholder"</pre>
+        </td>
+        <td>
+          <pre>INPUT:
+http://localhost:3000/api/photoAlbum/${ID}</pre>
+        </td>
+        <td>
+          <pre>INPUT:
+http://localhost:3000/api/photoAlbum/reset</pre>
+        </td>
+      <tr>
+        <td>
+          <pre>
+OUTPUT (if input is valid):
+  "id":"xxx",
+  "name":"placeholder",
+  "year":"placeholder",
+  "genre":"placeholder",
+  "poster":"placeholder URL",
+  "description":"placeholder"
+  (status code 201)
+    </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (if input is valid):
+  "id":"xxx",
+  "name":"placeholder",
+  "year":"placeholder",
+  "genre":"placeholder",
+  "poster":"placeholder URL",
+  "description":"placeholder"
+  (status code 200)
+    </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (if input is valid):
+  "id":"xxx",
+  "name":"placeholder",
+  "year":"placeholder",
+  "genre":"placeholder",
+  "poster":"placeholder URL",
+  "description":"placeholder"
+  (status code 204)
+    </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (if input is valid):
+  "Entry successfully deleted."
+  (status code 204)
+    </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (if input is valid):
+  "Database reset successfully!"
+  (status code 200)
+    </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre>
+OUTPUT(if input is invalid (duplicate input)):
+  "Error inserting entry: unique constraint violation"
+  (status code 400)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT(if ID is invalid):
+  "Not Found"
+  (status code 404)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT(if ID is invalid):
+  "Not Found"
+  (status code 404)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT(if ID is invalid):
+  "Not Found"
+  (status code 404)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT(if there are no entries to reset):
+  "Not Found"
+  (status code 404)
+  </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre>
+OUTPUT (other cases):
+  "Internal Server Error"
+  (status code 500)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (other cases):
+  "Internal Server Error"
+  (status code 500)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (other cases):
+  "Internal Server Error"
+  (status code 500)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (other cases):
+  "Error deleting entry"
+  "Internal Server Error"
+  (status code 500)
+  </pre>
+        </td>
+        <td>
+          <pre>
+OUTPUT (other cases):
+  "Error inserting default entries"
+  "Internal Server Error"
+  (status code 500)
+  </pre>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <footer>
+    <p>
+      <em>By <strong>Marwan Amrhar</strong>. An Interactive Media Photo Album.</em>
+    </p>
+  </footer>
+</body>
+
+</html>
